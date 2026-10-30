@@ -8,7 +8,7 @@ $connectionOptions = array(
     "Uid" => "myadmin",
     "PWD" => getenv("DB_PASSWORD"),
     "Encrypt" => 1,
-    "TrustServerCertificate" => 0
+    "TrustServerCertificate" => 1
 );
 
 // Process form submission
