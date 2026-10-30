@@ -1,51 +1,82 @@
-<!DOCTYPE html> 
-<html lang="en"> <head> 
-<meta charset="UTF-8"> 
-<meta name="viewport" content="width=device-width, initial-scale 
-=1.0"> 
-<title>MyShop - Welcome</title> 
-<link rel="stylesheet" href="styles.css"> <style> 
-.header { 
-background-color: #2c3e50; color: 
-white; padding: 20px 0; text-align: 
-center; margin-bottom: 30px; 
-} 
-.header h1 { margin: 0; font-size: 
-2.5em; 
-} 
-.container { max-width: 1200px; 
-margin: 0 auto; padding: 0 
-20px; 
-} 
-.welcome-text { text-align: center; 
-margin-bottom: 30px; font-size: 
-1.2em; color: #555; 
-} 
-.signup-link { display: inline-block; 
-background-color: #007bff; color: 
-white; padding: 12px 30px; text
-decoration: none; border-radius: 4px; 
-font-size: 18px; margin-top: 20px; 
-} 
-.signup-link:hover { background-color: 
-#0056b3; } 
-</style> 
-</head> <body> 
-<div class="header"> 
-<div class="container"> 
-<h1>MyShop</h1> 
-<p>Your one-stop destination for amazing products</p> 
-</div> 
-</div> 
-<div class="container"> 
-<div class="welcome-text"> 
-<h2>Welcome to MyShop</h2> 
-<p>Join our community today to access exclusive deals and 
-features!</p> 
-<!-- Simple link to signup page --> 
-<a href="register.php" class="signup-link">Create Your 
-Account</a> 
-</div> 
-</div> 
-</body> 
-</html> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cupcake Cuties</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1 class="logo">🧁 Cupcake Cuties 🧁</h1>
+    <p class="tagline">Baked with love, sprinkled with happiness! ♡</p>
+
+    <nav>
+        <a href="index.php">Home</a>
+        <a href="#cupcakes">Our Cupcakes</a>
+        <a href="register.php">Create Account</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <div class="card" style="text-align:center; background:#fff0f6;">
+        <h2 style="font-size:36px;">Welcome to Cupcake Cuties! ♡</h2>
+        <p>Life is sweeter with a little frosting!</p>
+        <p>Discover our delicious handmade cupcakes, baked fresh with love.</p>
+        <a href="register.php" class="btn">Join Our Sweet Club ♡</a>
+    </div>
+
+    <h2 id="cupcakes" style="text-align:center; margin-top:45px;">
+        Our Sweet Treats 🧁
+    </h2>
+
+    <div class="products">
+
+        <div class="product">
+            <div class="product-emoji">🧁</div>
+            <h3>Strawberry Dream</h3>
+            <p>Vanilla sponge with strawberry buttercream.</p>
+            <div class="price">£3.00</div>
+        </div>
+
+        <div class="product">
+            <div class="product-emoji">🧁</div>
+            <h3>Chocolate Heaven</h3>
+            <p>Rich chocolate sponge with chocolate frosting.</p>
+            <div class="price">£3.25</div>
+        </div>
+
+        <div class="product">
+            <div class="product-emoji">🧁</div>
+            <h3>Unicorn Magic</h3>
+            <p>Vanilla cupcake with colourful pastel frosting.</p>
+            <div class="price">£3.50</div>
+        </div>
+
+        <div class="product">
+            <div class="product-emoji">🧁</div>
+            <h3>Vanilla Cloud</h3>
+            <p>Fluffy vanilla sponge with creamy vanilla icing.</p>
+            <div class="price">£2.75</div>
+        </div>
+
+    </div>
+
+    <div class="card" style="text-align:center; margin-top:35px;">
+        <h2>Become a Cupcake Cutie! ♡</h2>
+        <p>Create an account and become part of our sweet little community.</p>
+        <a href="register.php" class="btn btn-purple">Register Now</a>
+    </div>
+
+</div>
+
+<footer>
+    <p>🧁 Made with love at Cupcake Cuties ♡</p>
+    <p>Sweet treats and happy hearts!</p>
+</footer>
+
+</body>
+</html>
