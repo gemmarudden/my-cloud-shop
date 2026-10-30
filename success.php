@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale 
 =1.0"> 
 <title>Registration Successful - MyShop</title> 
-<style> body { font-family: Arial, sans-serif; 
+<style> body { font-family: Arial, sans-serif;
 background-color: #f4f4f4; display: flex; 
 justify-content: center; align-items: 
 center; height: 100vh; margin: 0; text
@@ -49,4 +49,4 @@ radius: 4px; margin: 10px;
 </div> 
 </div> 
 </body> 
-</html> 
+</html>
