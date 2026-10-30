@@ -1,64 +1,95 @@
-<?php 
-// Simple database connection 
-$serverName = "tcp:mycardiffmet.database.windows.net,1433"; $connectionOptions = array( 
-"Database" => "myDatabase", 
-"Uid" => "myadmin", 
-"PWD" => "Abcdefgh0!", 
-"Encrypt" => 1, 
-"TrustServerCertificate" => 0 
-); 
-// Process form submission if ($_SERVER[’REQUEST_METHOD’] == 
-’POST’) { 
-$name = $_POST[’name’]; 
-$email = $_POST[’email’]; 
-$password = $_POST[’password’]; 
-// Basic validation if (!empty($name) && !empty($email) && !empty($password)) { 
-// Connect to database 
-$conn = sqlsrv_connect($serverName, $connectionOptions); 
-if ($conn) { 
-// Hash password 
-$hashed_password = password_hash($password, 
-PASSWORD_DEFAULT); 
-// Insert into database 
-$sql = "INSERT INTO shopusers (name, email, password) 
-VALUES (?, ?, ?)"; 
-$params = array($name, $email, $hashed_password); $stmt = 
-sqlsrv_query($conn, $sql, $params); 
-if ($stmt) { 
-// Redirect to success page header("Location: 
-success.php"); exit(); 
-} else { 
-// Get detailed error information 
-$errors = sqlsrv_errors(); 
-$error_message = "Database error: "; if ($errors != 
-null) { foreach ($errors as $error) { 
-$error_message .= "SQLSTATE: " . $error[’ SQLSTATE’] . ", "; 
-$error_message .= "Code: " . $error[’code’] . " , "; 
-$error_message .= "Message: " . $error[’message 
-’]; 
-} 
-} 
-// Redirect back with detailed error 
-header("Location: register.html?error=" . urlencode( 
-$error_message)); 
-exit(); 
-} 
-sqlsrv_free_stmt($stmt); sqlsrv_close($conn); 
-} else { 
-$connection_errors = sqlsrv_errors(); 
-$conn_error_message = "Database connection failed: "; if ($connection_errors != 
-null) { foreach ($connection_errors as $error) { 
-$conn_error_message .= $error[’message’]; 
-} 
-} 
-header("Location: register.html?error=" . urlencode( 
-$conn_error_message)); exit(); 
-} 
-} else { 
-header("Location: register.html?error=Please+fill+all+fields"); exit(); 
-} 
-} else { 
-// If someone tries to access this page directly header("Location: 
-register.html"); exit(); 
-} 
-?> 
+
+<?php
+
+// Database connection details
+$serverName = "tcp:mycardiffmet.database.windows.net,1433";
+
+$connectionOptions = array(
+    "Database" => "myDatabase",
+    "Uid" => "myadmin",
+    "PWD" => getenv("DB_PASSWORD"),
+    "Encrypt" => true,
+    "TrustServerCertificate" => false
+);
+
+// Only process form submissions
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    // Get form data
+    $name = trim($_POST['name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
+
+    // Basic validation
+    if (!empty($name) && !empty($email) && !empty($password)) {
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            header("Location: register.html?error=Invalid+email+address");
+            exit();
+        }
+
+        if (strlen($password) < 8) {
+            header("Location: register.html?error=Password+must+be+at+least+8+characters");
+            exit();
+        }
+
+        // Connect to Azure SQL Database
+        $conn = sqlsrv_connect($serverName, $connectionOptions);
+
+        if ($conn === false) {
+
+            // Database connection error
+            error_log(print_r(sqlsrv_errors(), true));
+
+            header("Location: register.html?error=Database+connection+failed");
+            exit();
+
+        } else {
+
+            // Hash password before storing
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+            // Insert user into database
+            $sql = "INSERT INTO shopusers (name, email, password)
+                    VALUES (?, ?, ?)";
+
+            $params = array($name, $email, $hashed_password);
+
+            $stmt = sqlsrv_query($conn, $sql, $params);
+
+            if ($stmt === false) {
+
+                // Capture database errors
+                error_log(print_r(sqlsrv_errors(), true));
+
+                sqlsrv_close($conn);
+
+                header("Location: register.html?error=Registration+failed");
+                exit();
+
+            } else {
+
+                // Registration successful
+                sqlsrv_free_stmt($stmt);
+                sqlsrv_close($conn);
+
+                header("Location: success.php");
+                exit();
+            }
+        }
+
+    } else {
+
+        // Required fields are missing
+        header("Location: register.html?error=Please+fill+all+fields");
+        exit();
+    }
+
+} else {
+
+    // Redirect users accessing this page directly
+    header("Location: register.html");
+    exit();
+}
+
+?>
