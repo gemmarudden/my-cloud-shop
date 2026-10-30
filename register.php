@@ -65,7 +65,7 @@ your email" required>
 </div> 
 <div class="form-group"> 
 <label>Password *</label> 
-<input type="password" name="password" placeholder="
+<input type="password" name="password" placeholder=" 
 Enter your password" required> 
 </div> 
 <div class="form-group"> 
@@ -75,4 +75,4 @@ Enter your password" required>
 </a></p> 
 </div> 
 </body> 
-</html>
+</html> 
