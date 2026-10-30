@@ -1,4 +1,3 @@
-
 <?php
 
 // Simple database connection
